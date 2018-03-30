@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -19,25 +17,6 @@ type book struct {
 type chapter struct {
 	title string
 	content string
-}
-
-
-//读取url中的信息
-func readUrlBody(url string) (string, error) {
-	resp, err := http.Get(url)
-	if err != nil {
-		return "err", err
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return "err", err
-	}
-
-	return string(body), err
 }
 
 //字符串转换方法
