@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/axgle/mahonia"
@@ -98,19 +99,19 @@ func main() {
 	//获取书籍信息
 	bookInfo := bookInfo(bookUrl)
 
-	//fmt.Println(bookInfo.title+"，本书是由:"+bookInfo.author+"所著")
+	fmt.Println(bookInfo.title+"，本书是由:"+bookInfo.author+"所著")
 
+	timeStart := time.Now()
 	//循环章节链接，获取内容
 	for _,item := range bookInfo.urlList {
 		chapterUrl:=baseUrl+item
-		go fmt.Println(chapterUrl)
+		chapter := chapterInfo(chapterUrl)
+		fmt.Println("章节:"+chapter.title+"的链接地址是:"+item)
+		// 剩余的任务就是组装写入数据库
 	}
 
+	timeEnd := time.Now()
+	wasteTime := time.Time.Sub(timeEnd,timeStart)
 
-	//chapterUrl := baseUrl+"/0_355/1086799.html"
-	//
-	//chapter := chapterInfo(chapterUrl)
-	//
-	//fmt.Print(chapter)
-
+	fmt.Println(wasteTime)
 }
